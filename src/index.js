@@ -126,6 +126,7 @@ export default class Sound extends React.Component {
     if (!props.url) { return; }
 
     this.stopCreatingSound = createSound({
+      ...this.props.options,
       url: this.props.url,
       volume: props.volume,
       whileloading() {
