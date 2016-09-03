@@ -42,6 +42,7 @@ export default class Sound extends React.Component {
   static status = playStatuses;
 
   static propTypes = {
+    autoLoad: T.bool,
     url: T.string.isRequired,
     playStatus: T.oneOf(Object.keys(playStatuses)).isRequired,
     position: T.number,
@@ -55,6 +56,7 @@ export default class Sound extends React.Component {
   static defaultProps = {
     playFromPosition: 0,
     volume: 100,
+    autoLoad: false,
     onLoading: noop,
     onPlaying: noop,
     onFinishedPlaying: noop
@@ -126,6 +128,7 @@ export default class Sound extends React.Component {
     if (!props.url) { return; }
 
     this.stopCreatingSound = createSound({
+      autoLoad: this.props.autoLoad,
       url: this.props.url,
       volume: props.volume,
       whileloading() {
