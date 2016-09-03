@@ -64,6 +64,12 @@ export default class Sound extends React.Component {
 
   componentDidMount() {
     this.createSound(sound => {
+      if (this.props.autoLoad) {
+        // XXX: using sound.load() apparently doesn't trigger onfinish
+        // so we're hacking here a bit by playing and pausing to trigger a load
+        sound.play();
+        sound.pause();
+      }
       if (this.props.playStatus === playStatuses.PLAYING) {
         sound.play();
       }
@@ -128,7 +134,6 @@ export default class Sound extends React.Component {
     if (!props.url) { return; }
 
     this.stopCreatingSound = createSound({
-      autoLoad: this.props.autoLoad,
       url: this.props.url,
       volume: props.volume,
       whileloading() {
